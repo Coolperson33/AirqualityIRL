@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Air Quality Dashboard</title>
+  <!-- Highcharts -->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <!-- Firebase -->
+<!-- Firebase App (the core Firebase SDK) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <style>
+    body {
+      background-color: #1e1e2f;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      margin-top: 20px;
+      color: #fff;
+    }
+    #controls {
+      margin: 10px;
+    }
+    select, button {
+      padding: 5px 10px;
+      margin: 5px;
+      border-radius: 5px;
+      border: none;
+      font-size: 14px;
+    }
+    #chart {
+      height: 600px;
+      width: 90%;
+      margin: 20px auto;
+      background-color: #2a2a3d;
+      border-radius: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Air Quality Dashboard</h1>
+  
+  <div id="
+  trols">
+    <label for="timeRange">Time Range:</label>
+    <select id="timeRange">
+      <option value="day">Past Day</option>
+      <option value="week">Past Week</option>
+      <option value="month">Past Month</option>
+    </select>
+    
+    <label for="aggregation">Aggregation:</label>
+    <select id="aggregation">
+      <option value="raw">Individual Points</option>
+      <option value="hourly">Hourly Avg</option>
+      <option value="daily">Daily Avg</option>
+      <option value="weekly">Weekly Avg</option>
+    </select>
+    
+    <button id="refresh">Refresh</button>
+  </div>
+  
+  <div id="chart"></div>
+  
+  <script src="app.js"></script>
+</body>
+</html>
