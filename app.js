@@ -1,6 +1,6 @@
 const firebaseConfig = {
-  apiKey: "FIREBASE_API_KEY_PLACEHOLDER",
-  projectId: "FIREBASE_PROJECT_ID_PLACEHOLDER"
+  apiKey: "AIzaSyDShPnrhxN5F1vNRK1sCXTV2Ni6iWQJxpM",
+  projectId: "airquality-71cef"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
