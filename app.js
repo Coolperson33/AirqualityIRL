@@ -11,9 +11,35 @@ const timeRangeSelect = document.getElementById("timeRange");
 const aggregationSelect = document.getElementById("aggregation");
 const refreshBtn = document.getElementById("refresh");
 let chart;
+let selectedMonth = new Date();
 function chicagoTime(date) {
   return new Date(date.toLocaleString("en-US", {timeZone: "America/Chicago"}));
 }
+timeRangeSelect.addEventListener("change", () => {
+  if (timeRangeSelect.value === "month") {
+    document.getElementById("monthSelector").style.display = "inline-flex";
+    updateMonthLabel();
+  } else {
+    document.getElementById("monthSelector").style.display = "none";
+  }
+});
+function updateMonthLabel() {
+  const options = { year: "numeric", month: "long" };
+  document.getElementById("currentMonth").textContent = selectedMonth.toLocaleDateString("en-US", options);
+}
+
+document.getElementById("prevMonth").addEventListener("click", () => {
+  selectedMonth.setMonth(selectedMonth.getMonth() - 1);
+  updateMonthLabel();
+  refreshChart();
+});
+
+document.getElementById("nextMonth").addEventListener("click", () => {
+  selectedMonth.setMonth(selectedMonth.getMonth() + 1);
+  updateMonthLabel();
+  refreshChart();
+});
+
 function processData(snapshot) {
   const readings = snapshot.docs.map(doc => {
     const d = doc.data();
@@ -35,7 +61,12 @@ function filterTimeRange(readings, range) {
   if (range === "day") cutoff = new Date(now.getTime() - 24*60*60*1000);
   else if (range === "week") cutoff = new Date(now.getTime() - 7*24*60*60*1000);
   else if (range === "month") cutoff = new Date(now.getTime() - 30*24*60*60*1000);
-  else if (range === "hour") cutoff = new Date(now.getTime() - 60*60*1000)
+  else if (range === "hour") cutoff = new Date(now.getTime() - 60*60*1000);
+  else if (range === "monthly") {
+    const start = newDate(selectedMonth.getFullYear(), selectedMonth.getMonth(), 1);
+    const end = newDate(selectedMonth.getFullYear(), selectedMonth.getMonth()+1, 1);
+    return readings.filter(r => r.timestamp >= start && r.timestamp < end);
+  }
   else cutoff = new Date(0);
 
   return readings.filter(r => r.timestamp > cutoff);
