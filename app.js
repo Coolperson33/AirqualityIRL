@@ -38,7 +38,7 @@ function filterTimeRange(readings, range) {
   if (range === "day") cutoff = new Date(now.getTime() - 24*60*60*1000);
   else if (range === "week") cutoff = new Date(now.getTime() - 7*24*60*60*1000);
   else if (range === "month") cutoff = new Date(now.getTime() - 30*24*60*60*1000);
-  else if (range === "hour") cutoff = new Date(.now.getTime() - 60*60*1000)
+  else if (range === "hour") cutoff = new Date(now.getTime() - 60*60*1000)
   else cutoff = new Date(0);
 
   return readings.filter(r => r.timestamp > cutoff);
