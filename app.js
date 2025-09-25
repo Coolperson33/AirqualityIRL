@@ -1,6 +1,6 @@
 const firebaseConfig = {
-  apiKey: "FIREBASE_API_KEY_PLACEHOLDER",
-  projectId: "FIREBASE_PROJECT_ID_PLACEHOLDER"
+  apiKey: "FIREBASE_API_KEY",
+  projectId: "FIREBASE_PROJECT_ID"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
