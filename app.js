@@ -10,28 +10,25 @@ const chartDiv = document.getElementById("chart");
 const timeRangeSelect = document.getElementById("timeRange");
 const aggregationSelect = document.getElementById("aggregation");
 const refreshBtn = document.getElementById("refresh");
-
-let chart; // Highcharts instance
-
-// Convert Firestore data and filter by time range
+let chart;
+function chicagoTime(date) {
+  return new Date(date.toLocaleString("en-US", {timeZone: "America/Chicago"}));
+}
 function processData(snapshot) {
   const readings = snapshot.docs.map(doc => {
     const d = doc.data();
     return {
-      timestamp: new Date(d.timestamp), // ISO string → Date
+      timestamp: chicagoTime(new Date(d.timestamp)),
       small: parseInt(d.small),
       large: parseInt(d.large),
       date: d.date
     };
   });
-
   const filtered = filterTimeRange(readings, timeRangeSelect.value);
   const aggregated = aggregateData(filtered, aggregationSelect.value);
     aggregated.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
     return aggregated;
 }
-
-// Filter by selected time range
 function filterTimeRange(readings, range) {
   const now = new Date();
   let cutoff;
