@@ -83,6 +83,9 @@ function drawChart(readings) {
   const largeData = readings.map(r => [r.timestamp.getTime(), r.large]);
 
   if (!chart) {
+    Highcharts.setOptions({
+      time: { timezone: 'America/Chicago'}
+    });
     chart = Highcharts.chart(chartDiv, {
       chart: { type: 'line', backgroundColor: '#2a2a3d' },
       title: { text: 'Air Quality Particle Counts', style: { color: '#fff' } },
