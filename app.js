@@ -16,7 +16,7 @@ function chicagoTime(date) {
   return new Date(date.toLocaleString("en-US", {timeZone: "America/Chicago"}));
 }
 timeRangeSelect.addEventListener("change", () => {
-  if (timeRangeSelect.value === "month") {
+  if (timeRangeSelect.value === "monthly") {
     document.getElementById("monthSelector").style.display = "inline-flex";
     updateMonthLabel();
   } else {
@@ -63,8 +63,8 @@ function filterTimeRange(readings, range) {
   else if (range === "month") cutoff = new Date(now.getTime() - 30*24*60*60*1000);
   else if (range === "hour") cutoff = new Date(now.getTime() - 60*60*1000);
   else if (range === "monthly") {
-    const start = newDate(selectedMonth.getFullYear(), selectedMonth.getMonth(), 1);
-    const end = newDate(selectedMonth.getFullYear(), selectedMonth.getMonth()+1, 1);
+    const start = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), 1);
+    const end = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth()+1, 1);
     return readings.filter(r => r.timestamp >= start && r.timestamp < end);
   }
   else cutoff = new Date(0);
